@@ -8,8 +8,8 @@ IF @@ERROR = 3702
 GO
 
 CREATE DATABASE DVDLibrary
-ON (NAME = 'DVDLibrary_Data', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercies\Designing a DVD library database\DVDLibrary_Data.mdf', SIZE = 5 MB, FILEGROWTH = 2)
-LOG ON (NAME = 'DVDLibrary_Log', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercies\Designing a DVD library database\DVDLibrary_Log.ldf', SIZE = 2 MB, FILEGROWTH = 1);
+ON (NAME = 'DVDLibrary_Data', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercises\DVDLibrary_Data.mdf', SIZE = 5 MB, FILEGROWTH = 2)
+LOG ON (NAME = 'DVDLibrary_Log', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercises\DVDLibrary_Log.ldf', SIZE = 2 MB, FILEGROWTH = 1);
 GO
 
 USE DVDLibrary;
