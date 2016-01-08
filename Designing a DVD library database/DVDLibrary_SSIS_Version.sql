@@ -8,8 +8,8 @@ IF @@ERROR = 3702
 GO
 
 CREATE DATABASE DVDLibrary
-ON (NAME = 'DVDLibrary_Data', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercises\DVDLibrary_Data.mdf', SIZE = 5 MB, FILEGROWTH = 2)
-LOG ON (NAME = 'DVDLibrary_Log', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercises\DVDLibrary_Log.ldf', SIZE = 2 MB, FILEGROWTH = 1);
+ON (NAME = 'DVDLibrary_Data', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercies\Designing a DVD library database\DVDLibrary_Data.mdf', SIZE = 5 MB, FILEGROWTH = 2)
+LOG ON (NAME = 'DVDLibrary_Log', FILENAME = N'E:\SQL_Server_Practice\SQL_Excercies\Designing a DVD library database\DVDLibrary_Log.ldf', SIZE = 2 MB, FILEGROWTH = 1);
 GO
 
 USE DVDLibrary;
@@ -52,6 +52,7 @@ VALUES ('King Kong', 5),
 		('Waterworld', 9),
 		('Troy', 8);
 
+
 CREATE TABLE DVDs
 (
 DVDID int IDENTITY(1,1) NOT NULL,
@@ -62,6 +63,16 @@ Copy int NOT NULL CHECK(Copy = 0 OR Copy = 1),
 CONSTRAINT PK_DVDID PRIMARY KEY CLUSTERED (DVDID)
 ) ON [PRIMARY];
 GO
+
+ALTER TABLE DVDRental
+ADD CONSTRAINT FK_CustomerID FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
+
+ALTER TABLE DVDRental
+ADD CONSTRAINT FK_DVDID FOREIGN KEY (DVDID) REFERENCES DIDs(DVDID);
+
+CREATE NONCLUSTERED INDEX IX_DVDRental_DVDID
+	ON DVDRental (DVDID);
+
 
 DECLARE @T int = 0
 WHILE @T < (SELECT Copies FROM DVDInventory WHERE FilmID = 1) 
@@ -144,8 +155,6 @@ BEGIN
 END;
 GO
 
-DROP PROCEDURE uspRental;
-GO
 
 CREATE PROCEDURE dbo.uspRental @DVDID int,
 			@CustomerID int,
